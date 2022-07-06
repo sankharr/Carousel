@@ -1,0 +1,20 @@
+.App {
+    font-family: sans-serif;
+    text-align: center;
+}
+
+.right-arrow {
+    position: absolute;
+    top: 30%;
+    right: 20px;
+    font-size: 2rem;
+    color: white;
+}
+
+.left-arrow {
+    position: absolute;
+    top: 30%;
+    left: 20px;
+    font-size: 2rem;
+    color: white;
+}
