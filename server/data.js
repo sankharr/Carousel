@@ -34,6 +34,21 @@ const slides = [
         title: "Title7",
         subTitle: "SubTitle7"
     },
+    {
+        image: "https://wowslider.com/sliders/demo-18/data1/images/hongkong1081704.jpg",
+        title: "Title8",
+        subTitle: "SubTitle8"
+    },
+    {
+        image: "https://wowslider.com/sliders/demo-77/data1/images/road220058.jpg",
+        title: "Title9",
+        subTitle: "SubTitle9"
+    },
+    {
+        image: "https://jssors8.azureedge.net/demos/image-slider/img/faded-monaco-scenery-evening-dark-picjumbo-com-image.jpg",
+        title: "Title10",
+        subTitle: "SubTitle10"
+    },
 ];
 
 module.exports = slides;

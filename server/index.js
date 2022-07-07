@@ -1,44 +1,33 @@
 const express = require("express");
-const bodyParser = require('body-parser');
-const data = require("./data");
+const mongoose = require("mongoose");
+const dotenv = require("dotenv");
+const bodyParser = require("body-parser");
 const PORT = 3600;
-const url = require('url');
+const path = require("path");
+const carouselRouter = require("./routes/carousel-routes");
 
 const cors = require("cors");
 const app = express();
+dotenv.config({ path: path.resolve(__dirname, "../.env") });
 
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.get('/api/carousel', (req, res) => {
-    let slides = req.query.slides;
+app.use("/api", carouselRouter);
 
-    console.log("req.params = ",slides)
-    try{
-        return res.status(200).json(data.slice(0,slides));
-    }
-    catch (error){
-        console.log(error);
-        return res.status(404).json({ message: "An error occured!"})
-    }
+// connecting to MongoDB
+mongoose.connect(
+  process.env.CONNECTION_URL,
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  },
+  () => {
+    console.log(`Database is Connected`);
+  }
+);
+
+app.listen(PORT, () => {
+  console.log(`App is running on port ${PORT}`);
 });
-
-// app.get('/api/carousel?', (req, res) => {
-//     const queryObject = url.parse(req.url, true).query;
-//     console.log(queryObject);
-//     console.log("req.params = ",req.params)
-//     try{
-//         return res.status(200).json(data);
-//     }
-//     catch (error){
-//         console.log(error);
-//         return res.status(404).json({ message: "An error occured!"})
-//     }
-// });
-
-
-app.listen(PORT, ()=> {
-    console.log(`App is running on port ${PORT}`);
-    
-})
