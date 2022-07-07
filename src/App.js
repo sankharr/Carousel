@@ -2,11 +2,12 @@ import "./App.css";
 import Carousel from "./Carousel/Carousel";
 
 function App() {
-
   return (
-    <div className="App">
+    <>
+      <Carousel Slides="1" infinite="false" />
       <Carousel Slides="4" infinite="true" />
-    </div>
+      <Carousel Slides="10" infinite="false" />
+    </>
   );
 }
 

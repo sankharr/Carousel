@@ -1,14 +1,15 @@
 import styled from "styled-components";
+import "./SlideImage.css";
+import TextLine from "./TextLine";
 
-export const SlideImage = styled.img`
-width: 100vw;
-  height: 300px;
-
-`;
-
-export const StyledSlider = styled.div`
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
+export const SlideImage = ({ imageData }) => {
+  return (
+    <>
+      <img src={imageData.image} className="active" />
+      <TextLine className="title" data={imageData.title} />
+      <TextLine className="subtitle" data={imageData.subTitle} />
+      {/* <p className="title">{imageData.title}</p>
+      <p className="subtitle">{imageData.subTitle}</p> */}
+    </>
+  );
+};

@@ -2,51 +2,63 @@ import React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import "./Carousel.css";
-import { SlideImage, StyledSlider } from "./SlideImage";
 
 import { FaChevronRight, FaChevronLeft } from "react-icons/fa";
+import { SlideImage } from "./SlideImage";
 
-const url = "http://localhost:3600/api/carousel";
+const url = "http://localhost:3600/api/carousel?slides=7";
 
 export default function Carousel({ Slides, infinite }) {
   const [data, setData] = useState([]);
   const [current, setCurrent] = useState(0);
-  const length = data.length;
+  let length = data.length;
 
-  const nextSlide = () => {
-    setCurrent(current === length - 1 ? 0 : current + 1);
-  };
-
-  const prevSlide = () => {
-    setCurrent(current === 0 ? length - 1 : current - 1);
-  };
 
   const fetchHandler = async () => {
     return await axios.get(url).then((res) => res.data);
   };
 
+  const nextSlide = () => {
+    if (infinite === "true")
+      setCurrent(current === length - 1 ? 0 : current + 1);
+    else {
+      if (current !== length - 1) setCurrent(current + 1);
+    }
+  };
+
+  const prevSlide = () => {
+    if (infinite === "true")
+      setCurrent(current === 0 ? length - 1 : current - 1);
+    else {
+      if (current !== 0) setCurrent(current - 1);
+    }
+  };
+
   useEffect(() => {
     fetchHandler()
       .then((res) => {
-        console.log("res => ", res);
-        setData(res);
-
-        // console.log("books => ",books)
+        if (Slides < res.length) setData(res.slice(0, Slides));
+        else setData(res);
       })
-      .then(() => console.log("data => ", data));
-  }, []);
+      .then(() => {
+        console.log("data => ", data);
+        setCurrent(0);
+      });
+  }, [Slides]);
 
   return (
-    <StyledSlider>
-      <FaChevronLeft className="left-arrow" onClick={prevSlide} />
-      <FaChevronRight className="right-arrow" onClick={nextSlide} />
-      {data.map((slide, index) => {
-        return <div key={index}>{index === current && <div>
-            <SlideImage src={slide.image} alt="" />
-            <p>{slide.title}</p>
-            <p>{slide.subTitle}</p>
-            </div>}</div>;
-      })}
-    </StyledSlider>
+    <div className="StyledSlider">
+      {data.map((slide, index) => (
+        <div key={index}>
+          {Slides !== "1" && (
+            <FaChevronLeft className="left-arrow" onClick={prevSlide} />
+          )}
+          {Slides !== "1" && (
+            <FaChevronRight className="right-arrow" onClick={nextSlide} />
+          )}
+          {index === current && <SlideImage imageData={slide} />}
+        </div>
+      ))}
+    </div>
   );
 }

@@ -1,20 +1,27 @@
-.App {
-    font-family: sans-serif;
-    text-align: center;
-}
-
 .right-arrow {
     position: absolute;
-    top: 30%;
-    right: 20px;
-    font-size: 2rem;
+    top: 50%;
+    right: 50px;
+    font-size: 1rem;
     color: white;
 }
 
 .left-arrow {
     position: absolute;
-    top: 30%;
-    left: 20px;
-    font-size: 2rem;
+    top: 50%;
+    left: 50px;
+    font-size: 1rem;
     color: white;
 }
+
+.StyledSlider {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.faded {
+    opacity: 0.2;
+}
+
